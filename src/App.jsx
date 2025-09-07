@@ -1,7 +1,16 @@
+import Navbar from "./components/navbar";
+import SearchBox from "./components/searchBox";
+import MainContent from "./components/mainContent";
 import "./styles/App.css";
 
 function App() {
-  return <h1>Weather App</h1>;
+  return (
+    <>
+      <Navbar />
+      <SearchBox />
+      <MainContent />
+    </>
+  );
 }
 
 export default App;
