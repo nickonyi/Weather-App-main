@@ -24,6 +24,14 @@ $font-family-body: "YourFontHere", sans-serif;
   box-sizing: border-box;
 }
 body {
-  background-color: $blue-700;
+  background-color: $neutral-900;
   color: $neutral-0;
+  padding: 20px 40px;
+}
+
+.nav-container {
+}
+.metric-container {
+  background-color: $neutral-800;
+  padding: 10px 15px;
 }
