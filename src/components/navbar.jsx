@@ -11,7 +11,7 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="metric-container flex items-center gap-2 cursor-pointer rounded px-12 bg-red-500">
+      <div className="metric-container flex items-center gap-2 cursor-pointer rounded-md py-2 px-4 bg-red-500">
         <img src={iconUnit} alt="Celsius Icon" />
         <button className="metric-button">Units</button>
         <img src={iconDropdown} alt="Dropdown Icon" />
