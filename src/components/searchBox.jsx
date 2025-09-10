@@ -1,4 +1,4 @@
-import React from "react";
+import search from "../assets/images/icon-search.svg";
 
 function SearchBox() {
   return (
@@ -10,12 +10,13 @@ function SearchBox() {
         <input
           type="text"
           id="search-input"
-          className="border rounded-md px-24 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md px-12 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search for a place..."
         />
+        <img className="search-img" src={search} alt="" />
         <button
           id="search-btn"
-          className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Search
         </button>

@@ -31,12 +31,19 @@ body {
 .metric-container {
   background-color: $neutral-800;
 }
-.search-box-container {
-  border: 2px solid red;
-}
+
 #search-input {
   background-color: $neutral-800;
+  width: 400px;
 }
 #search-btn {
   background-color: $blue-500;
+}
+
+.search-box-input-container {
+  position: relative;
+}
+.search-img {
+  position: absolute;
+  inset: 10px 10px;
 }
