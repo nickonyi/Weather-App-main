@@ -69,6 +69,8 @@ body {
 .weather-metric {
   border: 1px solid orange;
   height: 100%;
+  flex: 1;
+  height: 100px;
 }
 
 .weather-icon img {
