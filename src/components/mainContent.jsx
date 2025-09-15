@@ -122,7 +122,11 @@ function MainContent() {
           <div className="hourly-forecast-header flex justify-between items-center">
             <h2 className="flex item-center ">Hourly Forecast</h2>
             <div className="date-dropdown">
-              <select name="date" id="date-select" className="border p-2">
+              <select
+                name="date"
+                id="date-select"
+                className="border p-2 bg-gray-500"
+              >
                 <option value="tuesday">Tuesday</option>
                 <option value="wednesday">Wednesday</option>
                 <option value="thursday">Thursday</option>
