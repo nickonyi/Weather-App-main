@@ -35,22 +35,22 @@ function Navbar() {
           <p className="dropdown-header">Switch to imperial</p>
           <div className="dropdown-measurements">
             <p className="dropdown-item">Temperature</p>
-            <div className="dropdown-items-cont">
-              <p className="dropdown-item-unit">Celsius °C</p>
-              <p className="dropdown-item-unit">Fahrenheit °F</p>
+            <div className="dropdown-items-cont flex flex-col gap-2">
+              <p className="dropdown-item-unit selected">Celsius (°C)</p>
+              <p className="dropdown-item-unit">Fahrenheit (°F)</p>
             </div>
           </div>
           <div className="dropdown-measurements">
             <p className="dropdown-item">Wind Speed</p>
-            <div className="dropdown-items-cont">
-              <p className="dropdown-item-unit">km/h</p>
+            <div className="dropdown-items-cont flex flex-col gap-2">
+              <p className="dropdown-item-unit selected">km/h</p>
               <p className="dropdown-item-unit">mph</p>
             </div>
           </div>
           <div className="dropdown-measurements">
             <p className="dropdown-item">Precipitation</p>
             <div className="dropdown-items-cont">
-              <p className="dropdown-item-unit">Millimeters (mm)</p>
+              <p className="dropdown-item-unit selected">Millimeters (mm)</p>
             </div>
           </div>
         </div>

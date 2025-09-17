@@ -87,10 +87,40 @@ body {
 
 .dropdown-menu {
   background-color: $neutral-800;
+  width: 200px;
+}
+.dropdown-menu > * {
+  margin-block: 5px;
 }
 
 .dropdown-measurements {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border-bottom: 2px solid $neutral-600;
+}
+
+.dropdown-item {
+  color: $neutral-300;
+}
+
+.selected {
+  background-color: $neutral-600;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.dropdown-item-unit {
+  position: relative;
+  padding-right: 20px;
+}
+
+.dropdown-item-unit.selected::after {
+  content: "✔";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: white;
 }
