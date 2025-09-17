@@ -88,3 +88,9 @@ body {
 .dropdown-menu {
   background-color: $neutral-800;
 }
+
+.dropdown-measurements {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

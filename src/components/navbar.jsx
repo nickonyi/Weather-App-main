@@ -25,7 +25,7 @@ function Navbar() {
         <button className="metric-button">Units</button>
         <img src={iconDropdown} alt="Dropdown Icon" />
         <div
-          className={`dropdown-menu absolute right-1 top-full mt-2 bg-gray-700 rounded-md shadow-lg w-36  transform transition-all duration-500 ease-in-out
+          className={`dropdown-menu absolute right-1 top-full mt-2 bg-gray-700 px-4 py-2 rounded-md shadow-lg   transform transition-all duration-500 ease-in-out
     ${
       showDropdown
         ? "translate-y-0 opacity-100"
