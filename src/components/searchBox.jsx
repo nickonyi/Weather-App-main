@@ -16,7 +16,7 @@ function SearchBox({ setWeather }) {
 
       const geoData = await geoRes.json();
       if (!geoData.results || geoData.results.length === 0) {
-        setError("Location not found!!");
+        setError("No search result found!");
         return;
       }
 
@@ -29,8 +29,9 @@ function SearchBox({ setWeather }) {
       setWeather({
         city: name,
         country,
-        temp: weatherData.current_weather.temperature,
-        wind: weatherData.current_weather.windspeed,
+        current: weatherData.current_weather,
+        daily: weatherData.daily,
+        hourly: weatherData.hourly,
       });
     } catch (err) {
       console.log(err);
@@ -59,8 +60,8 @@ function SearchBox({ setWeather }) {
         >
           Search
         </button>
-        {error && <p className="text-red-500">{error}</p>}
       </div>
+      {error && <p className="text-white-500 font-semibold text-lg">{error}</p>}
     </div>
   );
 }

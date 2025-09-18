@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <SearchBox setWeatherData={setWeather} />
+      <SearchBox setWeather={setWeather} />
       <MainContent weatherData={weather} />
     </>
   );

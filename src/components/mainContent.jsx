@@ -4,7 +4,10 @@ import iconRain from "../assets/images/icon-rain.webp";
 import iconSnow from "../assets/images/icon-snow.webp";
 import iconStorm from "../assets/images/icon-storm.webp";
 
-function MainContent() {
+function MainContent({ weather }) {
+  if (!weather) {
+    return null;
+  }
   return (
     <main className="main-content flex mt-8 pl-24 pr-8 gap-8">
       <div className="daily-forecast-container flex-2 flex flex-col gap-8">
