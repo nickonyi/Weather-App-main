@@ -1,6 +1,42 @@
+import { useState } from "react";
 import search from "../assets/images/icon-search.svg";
 
-function SearchBox() {
+function SearchBox({ setWeather }) {
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSearch = async () => {
+    setError("");
+    setWeather(null);
+
+    try {
+      const geoRes = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${query}`
+      );
+
+      const geoData = await geoRes.json();
+      if (!geoData.results || geoData.results.length === 0) {
+        setError("Location not found!!");
+        return;
+      }
+
+      const { latitude, longitude, name, country } = geoData.results[0];
+
+      const weatherRes = fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      );
+      const weatherData = await weatherRes.json();
+      setWeather({
+        city: name,
+        country,
+        temp: weatherData.current_weather.temperature,
+        wind: weatherData.current_weather.windspeed,
+      });
+    } catch (err) {
+      console.log(err);
+      setError("Failed to fetch weather data. Please try again.");
+    }
+  };
   return (
     <div className="search-box-container mt-4 flex gap-10 p-4 flex-col items-center ">
       <p className="searchbox-text w-fit text-5xl">
@@ -10,16 +46,20 @@ function SearchBox() {
         <input
           type="text"
           id="search-input"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           className="rounded-md px-12 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search for a place..."
         />
         <img className="search-img" src={search} alt="" />
         <button
           id="search-btn"
+          onClick={handleSearch}
           className="rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Search
         </button>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );
