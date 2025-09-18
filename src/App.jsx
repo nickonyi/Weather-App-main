@@ -7,11 +7,12 @@ import { useState } from "react";
 
 function App() {
   const [weather, setWeather] = useState(null);
+
   return (
     <>
       <Navbar />
       <SearchBox setWeather={setWeather} />
-      <MainContent weatherData={weather} />
+      <MainContent weather={weather} />
     </>
   );
 }

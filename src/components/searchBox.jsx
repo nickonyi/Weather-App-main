@@ -22,10 +22,12 @@ function SearchBox({ setWeather }) {
 
       const { latitude, longitude, name, country } = geoData.results[0];
 
-      const weatherRes = fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      const weatherRes = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`
       );
       const weatherData = await weatherRes.json();
+      console.log(weatherData);
+
       setWeather({
         city: name,
         country,
