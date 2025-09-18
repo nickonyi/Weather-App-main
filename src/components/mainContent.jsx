@@ -10,6 +10,8 @@ function MainContent({ weather }) {
   }
 
   const { city, country, current, daily, hourly } = weather;
+  console.log(weather);
+
   console.log(current);
 
   return (
@@ -35,7 +37,7 @@ function MainContent({ weather }) {
                 <img src={iconSunny} alt="Sunny" />
               </div>
               <p className="weather-temp text-8xl">
-                {Math.round(current.temperature)}°
+                {Math.round(current.temperature_2m)}°
               </p>
             </div>
           </div>
@@ -43,13 +45,13 @@ function MainContent({ weather }) {
             <div className="weather-metric">
               <h3 className="weather-metric-header">Feels like</h3>
               <p className="weather-metric-value">
-                {Math.round(current.temperature)}°
+                {Math.round(current.temperature_2m)}°
               </p>
             </div>
             <div className="weather-metric">
               <h3 className="weather-metric-header">Humidity</h3>
               <p className="weather-metric-value">
-                {current.humidity ? `${current.humidity}%` : "--"}
+                {current.relative_humidity_2m}%
               </p>
             </div>
             <div className="weather-metric">
@@ -119,7 +121,10 @@ function MainContent({ weather }) {
           </div>
           <div className="hourly-forecast-cards flex flex-col gap-4 mt-4">
             {hourly.time.slice(0, 7).map((time, i) => (
-              <div className="hourly-forecast-card border p-4 flex justify-between items-center">
+              <div
+                key={time}
+                className="hourly-forecast-card border p-4 flex justify-between items-center"
+              >
                 <div className="time-container flex items-center gap-2">
                   <img src={iconSunny} alt="Sunny" />
                   <p className="time">{new Date(time).getHours()} PM</p>
