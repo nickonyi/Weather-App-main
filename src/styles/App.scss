@@ -57,11 +57,11 @@ body {
 .weather-conditions-container {
   background: url("../assets/images/bg-today-large.svg") no-repeat center
     center/cover;
-  border: 1px solid rgb(37, 14, 168);
+  border-radius: 20px;
 }
 
 .weather-metric {
-  border: 1px solid orange;
+  background-color: $neutral-800;
   height: 100%;
   flex: 1;
   height: 100px;
@@ -70,6 +70,15 @@ body {
   justify-content: center;
   gap: 10px;
   padding-left: 20px;
+  border-radius: 15px;
+}
+
+.weather-metric-value {
+  font-size: 1.7rem;
+  font-weight: 300;
+}
+.weather-date {
+  color: $neutral-200;
 }
 
 .weather-icon img {
@@ -84,7 +93,10 @@ body {
   width: 30px;
   height: 30px;
 }
-
+.daily-forecast-card {
+  background-color: $neutral-800;
+  border-radius: 15px;
+}
 .dropdown-menu {
   background-color: $neutral-800;
   width: 200px;
@@ -123,4 +135,14 @@ body {
   transform: translateY(-50%);
   font-size: 14px;
   color: white;
+}
+
+.hourly-forecast-section {
+  background-color: $neutral-800;
+  border-radius: 15px;
+}
+
+.hourly-forecast-card {
+  background-color: $neutral-700;
+  border-radius: 15px;
 }

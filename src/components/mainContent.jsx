@@ -18,12 +18,12 @@ function MainContent({ weather }) {
     <main className="main-content flex mt-8 pl-24 pr-8 gap-8">
       <div className="daily-forecast-container flex-2 flex flex-col gap-8">
         <div className="weather-banner-section flex flex-col gap-8 px-4 ">
-          <div className="weather-conditions-container h-64 border-red-500 flex justify-between items-center px-8">
-            <div className="weather-text-container">
-              <h2 className="weather-location">
+          <div className="weather-conditions-container rounded-lg h-64 border-red-500 flex justify-between items-center px-8">
+            <div className="weather-text-container flex flex-col gap-2">
+              <h2 className="weather-location text-2xl font-semibold">
                 {city}, {country}
               </h2>
-              <p className="weather-date">
+              <p className="weather-date text-white-200 font-light">
                 {new Date().toLocaleDateString("en-US", {
                   weekday: "long",
                   month: "short",
@@ -75,7 +75,7 @@ function MainContent({ weather }) {
             {daily.time.map((date, i) => (
               <div
                 key={date}
-                className="daily-forecast-card border p-4 flex flex-col items-center"
+                className="daily-forecast-card  p-4 flex flex-col items-center"
               >
                 <p className="daily-forecast-day mb-2">
                   {new Date(date).toLocaleDateString("en-US", {
@@ -100,14 +100,14 @@ function MainContent({ weather }) {
       </div>
 
       <div className="hourly-forecast-container flex-1">
-        <div className="hourly-forecast-section border p-4">
-          <div className="hourly-forecast-header flex justify-between items-center">
+        <div className="hourly-forecast-section p-4">
+          <div className="hourly-forecast-header flex justify-between items-center pt-6">
             <h2 className="flex item-center ">Hourly Forecast</h2>
             <div className="date-dropdown">
               <select
                 name="date"
                 id="date-select"
-                className="border w-32 rounded-lg  p-2 bg-gray-500"
+                className="w-32 rounded-lg  p-2 bg-gray-500"
               >
                 <option value="monday">Monday</option>
                 <option value="tuesday">Tuesday</option>
@@ -123,7 +123,7 @@ function MainContent({ weather }) {
             {hourly.time.slice(0, 7).map((time, i) => (
               <div
                 key={time}
-                className="hourly-forecast-card border p-4 flex justify-between items-center"
+                className="hourly-forecast-card  p-4 flex justify-between items-center"
               >
                 <div className="time-container flex items-center gap-2">
                   <img src={iconSunny} alt="Sunny" />
