@@ -3,6 +3,7 @@ import iconOvercast from "../assets/images/icon-overcast.webp";
 import iconRain from "../assets/images/icon-rain.webp";
 import iconSnow from "../assets/images/icon-snow.webp";
 import iconStorm from "../assets/images/icon-storm.webp";
+import { useEffect, useState } from "react";
 
 function MainContent({ weather }) {
   if (!weather) {
@@ -10,7 +11,46 @@ function MainContent({ weather }) {
   }
 
   const { city, country, current, daily, hourly } = weather;
-  console.log(hourly);
+  const [selectedDay, setSelectedDay] = useState(() => {
+    const today = new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+    });
+    return today;
+  });
+  console.log(selectedDay);
+
+  const groupHourlyByDay = (hourly) => {
+    const grouped = {};
+
+    hourly.time.forEach((t, i) => {
+      const date = new Date(t);
+      const dayLabel = date.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+      });
+
+      if (!grouped[dayLabel]) {
+        grouped[dayLabel] = [];
+      }
+
+      grouped[dayLabel].push({
+        time: t,
+        temp: Math.round(hourly.temperature_2m[i]),
+      });
+    });
+    return grouped;
+  };
+  const grouped = groupHourlyByDay(hourly);
+  const days = Object.keys(grouped);
+
+  useEffect(() => {
+    if (!selectedDay && days.length > 0) {
+      selectedDay[days[0]];
+    }
+  }, [days, selectedDay]);
 
   const getWeatherIcon = (tempMax) => {
     if (tempMax >= 30) {
@@ -28,6 +68,12 @@ function MainContent({ weather }) {
 
   const currentTemp = Math.round(current.temperature_2m);
   const currentIcon = getWeatherIcon(currentTemp);
+
+  const now = new Date();
+  const startIndex = hourly.time.findIndex(
+    (t) => new Date(t).getHours() === now.getHours()
+  );
+  const safeIndex = startIndex !== -1 ? startIndex : 0;
 
   return (
     <main className="main-content flex mt-8 pl-24 pr-8 gap-8">
@@ -128,39 +174,42 @@ function MainContent({ weather }) {
                 name="date"
                 id="date-select"
                 className="w-32 rounded-lg  p-2 bg-gray-500"
+                onChange={(e) => setSelectedDay(e.target.value)}
               >
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
+                {Object.keys(grouped).map((day) => {
+                  const date = new Date(grouped[day][0].time);
+                  const dayOnly = date.toLocaleDateString("en-US", {
+                    weekday: "long",
+                  });
+
+                  return (
+                    <option key={day} value={day}>
+                      {dayOnly}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
           <div className="hourly-forecast-cards flex flex-col gap-4 mt-4">
-            {hourly.time.slice(0, 7).map((time, i) => {
-              const currentTemp = Math.round(current.temperature_2m);
-              const currentIcon = getWeatherIcon(currentTemp);
+            {grouped[selectedDay]?.slice(0, 7).map((entry) => {
+              const currentIcon = getWeatherIcon(entry.temp);
               return (
                 <div
-                  key={time}
+                  key={entry.time}
                   className="hourly-forecast-card  p-4 flex justify-between items-center"
                 >
                   <div className="time-container flex items-center gap-2">
                     <img src={currentIcon} alt="Weather icon" />
                     <p className="time">
-                      {new Date(time).toLocaleTimeString("en-US", {
+                      {new Date(entry.time).toLocaleTimeString("en-US", {
                         hour: "numeric",
                         hour12: true,
                       })}
                     </p>
                   </div>
                   <div className="temperature-container">
-                    <p className="temperature">
-                      {Math.round(hourly.temperature_2m[i])}°
-                    </p>
+                    <p className="temperature">{entry.temp}°</p>
                   </div>
                 </div>
               );

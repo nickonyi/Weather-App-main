@@ -27,7 +27,6 @@ function SearchBox({ setWeather }) {
       );
 
       const weatherData = await weatherRes.json();
-      console.log(weatherData);
 
       setWeather({
         city: name,
@@ -37,7 +36,6 @@ function SearchBox({ setWeather }) {
         hourly: weatherData.hourly,
       });
     } catch (err) {
-      console.log(err);
       setError("Failed to fetch weather data. Please try again.");
     }
   };
