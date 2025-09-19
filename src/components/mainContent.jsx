@@ -10,9 +10,24 @@ function MainContent({ weather }) {
   }
 
   const { city, country, current, daily, hourly } = weather;
-  console.log(weather);
+  console.log(hourly);
 
-  console.log(current);
+  const getWeatherIcon = (tempMax) => {
+    if (tempMax >= 30) {
+      return iconSunny;
+    } else if (tempMax >= 20) {
+      return iconOvercast;
+    } else if (tempMax >= 10) {
+      return iconRain;
+    } else if (tempMax >= 0) {
+      return iconStorm;
+    } else {
+      return iconSnow;
+    }
+  };
+
+  const currentTemp = Math.round(current.temperature_2m);
+  const currentIcon = getWeatherIcon(currentTemp);
 
   return (
     <main className="main-content flex mt-8 pl-24 pr-8 gap-8">
@@ -34,7 +49,7 @@ function MainContent({ weather }) {
             </div>
             <div className="weather-icon-temp-container flex items-center gap-8">
               <div className="weather-icon">
-                <img src={iconSunny} alt="Sunny" />
+                <img src={currentIcon} alt="Sunny" />
               </div>
               <p className="weather-temp text-8xl">
                 {Math.round(current.temperature_2m)}°
@@ -72,29 +87,34 @@ function MainContent({ weather }) {
         <div className="daily-forecast-section mt-8">
           <h2 className="daily-forecast-header mb-4">Daily Forecast</h2>
           <div className="daily-forecast-cards flex gap-4">
-            {daily.time.map((date, i) => (
-              <div
-                key={date}
-                className="daily-forecast-card  p-4 flex flex-col items-center"
-              >
-                <p className="daily-forecast-day mb-2">
-                  {new Date(date).toLocaleDateString("en-US", {
-                    weekday: "short",
-                  })}
-                </p>
-                <div className="daily-forecast-icon mb-2">
-                  <img src={iconStorm} alt="Sunny" />
-                </div>
-                <div className="daily-forecast-temp-container flex justify-between w-16">
-                  <p className="daily-forecast-temp high">
-                    {Math.floor(daily.temperature_2m_max[i])}°
+            {daily.time.map((date, i) => {
+              const maxTemp = Math.floor(daily.temperature_2m_max[i]);
+              const icon = getWeatherIcon(maxTemp);
+
+              return (
+                <div
+                  key={date}
+                  className="daily-forecast-card  p-4 flex flex-col items-center"
+                >
+                  <p className="daily-forecast-day mb-2">
+                    {new Date(date).toLocaleDateString("en-US", {
+                      weekday: "short",
+                    })}
                   </p>
-                  <p className="daily-forecast-temp low">
-                    {Math.floor(daily.temperature_2m_min[i])}°
-                  </p>
+                  <div className="daily-forecast-icon mb-2">
+                    <img src={icon} alt="Weather icon" />
+                  </div>
+                  <div className="daily-forecast-temp-container flex justify-between w-16">
+                    <p className="daily-forecast-temp high">
+                      {Math.floor(daily.temperature_2m_max[i])}°
+                    </p>
+                    <p className="daily-forecast-temp low">
+                      {Math.floor(daily.temperature_2m_min[i])}°
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -120,22 +140,31 @@ function MainContent({ weather }) {
             </div>
           </div>
           <div className="hourly-forecast-cards flex flex-col gap-4 mt-4">
-            {hourly.time.slice(0, 7).map((time, i) => (
-              <div
-                key={time}
-                className="hourly-forecast-card  p-4 flex justify-between items-center"
-              >
-                <div className="time-container flex items-center gap-2">
-                  <img src={iconSunny} alt="Sunny" />
-                  <p className="time">{new Date(time).getHours()} PM</p>
+            {hourly.time.slice(0, 7).map((time, i) => {
+              const currentTemp = Math.round(current.temperature_2m);
+              const currentIcon = getWeatherIcon(currentTemp);
+              return (
+                <div
+                  key={time}
+                  className="hourly-forecast-card  p-4 flex justify-between items-center"
+                >
+                  <div className="time-container flex items-center gap-2">
+                    <img src={currentIcon} alt="Weather icon" />
+                    <p className="time">
+                      {new Date(time).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        hour12: true,
+                      })}
+                    </p>
+                  </div>
+                  <div className="temperature-container">
+                    <p className="temperature">
+                      {Math.round(hourly.temperature_2m[i])}°
+                    </p>
+                  </div>
                 </div>
-                <div className="temperature-container">
-                  <p className="temperature">
-                    {Math.round(hourly.temperature_2m[i])}°
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
