@@ -19,7 +19,6 @@ function MainContent({ weather }) {
     });
     return today;
   });
-  console.log(selectedDay);
 
   const groupHourlyByDay = (hourly) => {
     const grouped = {};
