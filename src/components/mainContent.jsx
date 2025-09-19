@@ -57,14 +57,14 @@ function MainContent({ weather }) {
             <div className="weather-metric">
               <h3 className="weather-metric-header">Wind</h3>
               <p className="weather-metric-value">
-                {Math.round(current.windspeed)} km/h
+                {Math.round(current.windspeed_10m)} km/h
               </p>
             </div>
             <div className="weather-metric">
               <h3 className="weather-metric-header">Precipitation</h3>
               <p className="weather-metric-value">
                 {" "}
-                {current.precipitation ? `${current.precipitation} mm` : "--"}
+                {current.precipitation} mm
               </p>
             </div>
           </div>
