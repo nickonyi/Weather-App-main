@@ -5,7 +5,7 @@ import iconSnow from "../assets/images/icon-snow.webp";
 import iconStorm from "../assets/images/icon-storm.webp";
 import { useEffect, useState } from "react";
 
-function MainContent({ weather }) {
+function MainContent({ weather, loading }) {
   if (!weather) {
     return null;
   }
@@ -105,7 +105,7 @@ function MainContent({ weather }) {
             <div className="weather-metric">
               <h3 className="weather-metric-header">Feels like</h3>
               <p className="weather-metric-value">
-                {Math.round(current.temperature_2m)}°
+                {loading ? "--" : Math.round(current.temperature_2m)}°
               </p>
             </div>
             <div className="weather-metric">

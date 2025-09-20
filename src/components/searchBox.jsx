@@ -1,13 +1,14 @@
 import { useState } from "react";
 import search from "../assets/images/icon-search.svg";
 
-function SearchBox({ setWeather }) {
+function SearchBox({ setWeather, setLoading }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
     setError("");
     setWeather(null);
+    setLoading(true);
 
     try {
       const geoRes = await fetch(
@@ -37,6 +38,8 @@ function SearchBox({ setWeather }) {
       });
     } catch (err) {
       setError("Failed to fetch weather data. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
   return (

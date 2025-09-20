@@ -7,12 +7,13 @@ import { useState } from "react";
 
 function App() {
   const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
       <Navbar />
-      <SearchBox setWeather={setWeather} />
-      <MainContent weather={weather} />
+      <SearchBox setWeather={setWeather} setLoading={setLoading} />
+      <MainContent weather={weather} loading={loading} />
     </>
   );
 }
