@@ -3,12 +3,18 @@ import iconUnit from "../assets/images/icon-units.svg";
 import iconDropdown from "../assets/images/icon-dropdown.svg";
 import { useState } from "react";
 
-function Navbar() {
+function Navbar({ units, setUnits }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const handleSelect = (category, value, e) => {
+    e.stopPropagation();
+    setUnits((prev) => ({ ...prev, [category]: value }));
+  };
+
   return (
     <nav className="nav-container flex justify-between items-center px-12">
       <div className="nav-logo">
@@ -18,8 +24,8 @@ function Navbar() {
       </div>
 
       <div
-        className="metric-container relative flex items-center gap-2 cursor-pointer rounded-md py-2 px-4 "
         onClick={toggleDropdown}
+        className="metric-container relative flex items-center gap-2 cursor-pointer rounded-md py-2 px-4 "
       >
         <img src={iconUnit} alt="Celsius Icon" />
         <button className="metric-button">Units</button>
@@ -36,21 +42,49 @@ function Navbar() {
           <div className="dropdown-measurements">
             <p className="dropdown-item">Temperature</p>
             <div className="dropdown-items-cont flex flex-col gap-2">
-              <p className="dropdown-item-unit selected">Celsius (°C)</p>
-              <p className="dropdown-item-unit">Fahrenheit (°F)</p>
+              {["Celsius (°C)", "Fahrenheit (°F)"].map((unit) => (
+                <p
+                  key={unit}
+                  className={`dropdown-item-unit ${
+                    units.temperature === unit ? "selected" : ""
+                  }`}
+                  onClick={(e) => handleSelect("temperature", unit, e)}
+                >
+                  {unit}
+                </p>
+              ))}
             </div>
           </div>
           <div className="dropdown-measurements">
             <p className="dropdown-item">Wind Speed</p>
             <div className="dropdown-items-cont flex flex-col gap-2">
-              <p className="dropdown-item-unit selected">km/h</p>
-              <p className="dropdown-item-unit">mph</p>
+              {["km/h", "mph"].map((unit) => (
+                <p
+                  key={unit}
+                  className={`dropdown-item-unit ${
+                    units.wind === unit ? "selected" : ""
+                  }`}
+                  onClick={(e) => handleSelect("wind", unit, e)}
+                >
+                  {unit}
+                </p>
+              ))}
             </div>
           </div>
           <div className="dropdown-measurements">
             <p className="dropdown-item">Precipitation</p>
-            <div className="dropdown-items-cont">
-              <p className="dropdown-item-unit selected">Millimeters (mm)</p>
+            <div className="dropdown-items-cont flex flex-col gap-2">
+              {["Millimeters (mm)", "Inches (in)"].map((unit) => (
+                <p
+                  key={unit}
+                  className={`dropdown-item-unit ${
+                    units.precipitation === unit ? "selected" : ""
+                  }`}
+                  onClick={(e) => handleSelect("precipitation", unit, e)}
+                >
+                  {unit}
+                </p>
+              ))}
             </div>
           </div>
         </div>

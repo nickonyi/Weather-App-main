@@ -162,7 +162,7 @@ function MainContent({ weather, loading }) {
           <div className="daily-forecast-cards flex gap-4">
             {loading
               ? // render skeleton daily cards
-                Array.from({ length: 5 }).map((_, i) => (
+                Array.from({ length: 7 }).map((_, i) => (
                   <div
                     key={`skeleton-day-${i}`}
                     className="daily-forecast-card p-4 flex flex-col items-center bg-white/5 rounded-lg"
