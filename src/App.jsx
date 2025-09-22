@@ -9,9 +9,9 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState({
-    temperature: "Celsius (°C)",
-    wind: "km/h",
-    precipitation: "Millimeters (mm)",
+    temperature: "celsius",
+    wind: "kmh",
+    precipitation: "mm",
   });
 
   return (
@@ -22,7 +22,7 @@ function App() {
         setLoading={setLoading}
         units={units}
       />
-      <MainContent weather={weather} loading={loading} />
+      <MainContent weather={weather} loading={loading} units={units} />
     </>
   );
 }

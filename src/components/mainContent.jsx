@@ -5,7 +5,7 @@ import iconSnow from "../assets/images/icon-snow.webp";
 import iconStorm from "../assets/images/icon-storm.webp";
 import { useEffect, useState } from "react";
 
-function MainContent({ weather, loading }) {
+function MainContent({ weather, loading, units }) {
   if (!weather && !loading) {
     return null;
   }
@@ -133,12 +133,14 @@ function MainContent({ weather, loading }) {
               {
                 title: "Wind",
                 value: current
-                  ? `${Math.round(current.windspeed_10m)} km/h`
+                  ? `${Math.round(current.windspeed_10m)} ${units.wind}`
                   : null,
               },
               {
                 title: "Precipitation",
-                value: current ? `${current.precipitation} mm` : null,
+                value: current
+                  ? `${current.precipitation} ${units.precipitation}`
+                  : null,
               },
             ].map((m) => (
               <div key={m.title} className="weather-metric">

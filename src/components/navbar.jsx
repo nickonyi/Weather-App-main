@@ -2,6 +2,11 @@ import logo from "../assets/images/logo.svg";
 import iconUnit from "../assets/images/icon-units.svg";
 import iconDropdown from "../assets/images/icon-dropdown.svg";
 import { useState } from "react";
+import {
+  temperatureOptions,
+  windOptions,
+  precipitationOptions,
+} from "../utility/utilityMappings";
 
 function Navbar({ units, setUnits }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -42,15 +47,15 @@ function Navbar({ units, setUnits }) {
           <div className="dropdown-measurements">
             <p className="dropdown-item">Temperature</p>
             <div className="dropdown-items-cont flex flex-col gap-2">
-              {["Celsius (°C)", "Fahrenheit (°F)"].map((unit) => (
+              {Object.entries(temperatureOptions).map(([value, label]) => (
                 <p
-                  key={unit}
+                  key={value}
                   className={`dropdown-item-unit ${
-                    units.temperature === unit ? "selected" : ""
+                    units.temperature === value ? "selected" : ""
                   }`}
-                  onClick={(e) => handleSelect("temperature", unit, e)}
+                  onClick={(e) => handleSelect("temperature", value, e)}
                 >
-                  {unit}
+                  {label}
                 </p>
               ))}
             </div>
@@ -58,15 +63,15 @@ function Navbar({ units, setUnits }) {
           <div className="dropdown-measurements">
             <p className="dropdown-item">Wind Speed</p>
             <div className="dropdown-items-cont flex flex-col gap-2">
-              {["km/h", "mph"].map((unit) => (
+              {Object.entries(windOptions).map(([value, label]) => (
                 <p
-                  key={unit}
+                  key={value}
                   className={`dropdown-item-unit ${
-                    units.wind === unit ? "selected" : ""
+                    units.wind === value ? "selected" : ""
                   }`}
-                  onClick={(e) => handleSelect("wind", unit, e)}
+                  onClick={(e) => handleSelect("wind", value, e)}
                 >
-                  {unit}
+                  {label}
                 </p>
               ))}
             </div>
@@ -74,15 +79,15 @@ function Navbar({ units, setUnits }) {
           <div className="dropdown-measurements">
             <p className="dropdown-item">Precipitation</p>
             <div className="dropdown-items-cont flex flex-col gap-2">
-              {["Millimeters (mm)", "Inches (in)"].map((unit) => (
+              {Object.entries(precipitationOptions).map(([value, label]) => (
                 <p
-                  key={unit}
+                  key={value}
                   className={`dropdown-item-unit ${
-                    units.precipitation === unit ? "selected" : ""
+                    units.precipitation === value ? "selected" : ""
                   }`}
-                  onClick={(e) => handleSelect("precipitation", unit, e)}
+                  onClick={(e) => handleSelect("precipitation", value, e)}
                 >
-                  {unit}
+                  {label}
                 </p>
               ))}
             </div>

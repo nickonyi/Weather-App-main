@@ -1,7 +1,7 @@
 import { useState } from "react";
 import search from "../assets/images/icon-search.svg";
 
-function SearchBox({ setWeather, setLoading }) {
+function SearchBox({ setWeather, setLoading, units }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
 
@@ -23,11 +23,26 @@ function SearchBox({ setWeather, setLoading }) {
 
       const { latitude, longitude, name, country } = geoData.results[0];
 
-      const weatherRes = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,weathercode,windspeed_10m&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=auto`
-      );
+      const params = new URLSearchParams({
+        latitude,
+        longitude,
+        current:
+          "temperature_2m,relative_humidity_2m,precipitation,weathercode,windspeed_10m",
+        hourly: "temperature_2m,weathercode",
+        daily:
+          "temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum",
+        timezone: "auto",
+        temperature_unit: units.temperature,
+        windspeed_unit: units.wind,
+        precipitation_unit: units.precipitation,
+      });
+
+      const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+
+      const weatherRes = await fetch(url);
 
       const weatherData = await weatherRes.json();
+      console.log(weatherData);
 
       setWeather({
         city: name,
