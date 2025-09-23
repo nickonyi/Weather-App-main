@@ -1,6 +1,8 @@
 import Navbar from "./components/navbar";
 import SearchBox from "./components/searchBox";
 import MainContent from "./components/mainContent";
+import Error from "./page/Error";
+import { ErrorBoundary } from "react-error-boundary";
 import "./styles/App.scss";
 import "./styles/index.css";
 import { useState } from "react";
@@ -17,12 +19,14 @@ function App() {
   return (
     <>
       <Navbar units={units} setUnits={setUnits} />
-      <SearchBox
-        setWeather={setWeather}
-        setLoading={setLoading}
-        units={units}
-      />
-      <MainContent weather={weather} loading={loading} units={units} />
+      <ErrorBoundary FallbackComponent={Error}>
+        <SearchBox
+          setWeather={setWeather}
+          setLoading={setLoading}
+          units={units}
+        />
+        <MainContent weather={weather} loading={loading} units={units} />
+      </ErrorBoundary>
     </>
   );
 }
