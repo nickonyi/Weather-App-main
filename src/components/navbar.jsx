@@ -21,7 +21,7 @@ function Navbar({ units, setUnits }) {
   };
 
   return (
-    <nav className="nav-container flex justify-between items-center px-12">
+    <nav className="px-2 h-10 flex justify-between items-center lg:px-12">
       <div className="nav-logo">
         <div className="nav-logo-img">
           <img src={logo} alt="Weather App Logo" />
@@ -33,10 +33,10 @@ function Navbar({ units, setUnits }) {
         className="metric-container relative flex items-center gap-2 cursor-pointer rounded-md py-2 px-4 "
       >
         <img src={iconUnit} alt="Celsius Icon" />
-        <button className="metric-button">Units</button>
+        <button className="metric-button text-xs lg:text-base">Units</button>
         <img src={iconDropdown} alt="Dropdown Icon" />
         <div
-          className={`dropdown-menu cursor-pointer absolute right-1 top-full mt-2 bg-gray-700 px-4 py-2 rounded-md shadow-lg   transform transition-all duration-500 ease-in-out
+          className={`dropdown-menu cursor-pointer z-50 absolute right-1 top-full mt-2 bg-gray-700 px-4 py-2 rounded-md shadow-lg   transform transition-all duration-500 ease-in-out
     ${
       showDropdown
         ? "translate-y-0 opacity-100"
