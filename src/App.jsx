@@ -1,7 +1,7 @@
 import Navbar from "./components/navbar";
 import SearchBox from "./components/searchBox";
 import MainContent from "./components/mainContent";
-import Error from "./page/Error";
+import Error from "./pages/Error";
 import { ErrorBoundary } from "react-error-boundary";
 import "./styles/App.scss";
 import "./styles/index.css";
