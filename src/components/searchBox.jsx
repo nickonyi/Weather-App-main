@@ -62,7 +62,7 @@ function SearchBox({ setWeather, setLoading, units }) {
       <p className="searchbox-text w-fit text-5xl px-6 lg:px-0">
         How's the sky looking today?
       </p>
-      <div className="search-box-input-container lg:w-fit flex gap-4">
+      <div className="search-box-input-container w-64 lg:w-fit flex flex-col lg:flex-row gap-4">
         <input
           type="text"
           id="search-input"
