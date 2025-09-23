@@ -75,7 +75,7 @@ function SearchBox({ setWeather, setLoading, units }) {
         <button
           id="search-btn"
           onClick={handleSearch}
-          className="rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-md cursor-pointer px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Search
         </button>
