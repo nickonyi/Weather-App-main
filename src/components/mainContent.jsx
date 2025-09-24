@@ -92,12 +92,12 @@ function MainContent({ weather, loading, units }) {
               <span className="animate-bounce delay-300">.</span>
             </div>
           ) : (
-            <div className="weather-conditions-container rounded-lg h-64 flex justify-between items-center px-8">
+            <div className="weather-conditions-container rounded-lg h-64 flex flex-col justify-center lg:flex-row lg:justify-between items-center px-8">
               <div className="weather-text-container flex flex-col gap-2">
-                <h2 className="weather-location text-2xl font-semibold">
+                <h2 className="weather-location text-3xl lg:text-2xl font-semibold">
                   {city}, {country}
                 </h2>
-                <p className="weather-date text-white-200 font-light">
+                <p className="weather-date text-white-200 font-light pl-4">
                   {new Date().toLocaleDateString("en-US", {
                     weekday: "long",
                     month: "short",
@@ -106,7 +106,7 @@ function MainContent({ weather, loading, units }) {
                   })}
                 </p>
               </div>
-              <div className="weather-icon-temp-container flex items-center gap-8">
+              <div className="weather-icon-temp-container w-full flex gap-4 px-4 items-center lg:gap-8">
                 <div className="weather-icon">
                   <img src={currentIcon} alt="Weather Icon" />
                 </div>
@@ -169,7 +169,7 @@ function MainContent({ weather, loading, units }) {
                 Array.from({ length: 7 }).map((_, i) => (
                   <div
                     key={`skeleton-day-${i}`}
-                    className="daily-forecast-card w-28 flex-shrink-0 p-4 flex flex-col items-center bg-white/5 rounded-lg"
+                    className="daily-forecast-card w-28 border flex-shrink-0 p-4 flex flex-col items-center bg-white/5 rounded-lg"
                   >
                     <div className="h-4 w-12 bg-gray-300 rounded mb-2 animate-pulse" />
                     <div className="h-12 w-12 bg-gray-300 rounded-full mb-2 animate-pulse" />
@@ -183,7 +183,7 @@ function MainContent({ weather, loading, units }) {
                   return (
                     <div
                       key={date}
-                      className="daily-forecast-card w-28 lg:w-22 flex-shrink-0 p-4 flex flex-col items-center "
+                      className="daily-forecast-card  w-28 lg:w-22 flex-shrink-0 p-4 flex flex-col items-center "
                     >
                       <p className="daily-forecast-day mb-2">
                         {new Date(date).toLocaleDateString("en-US", {
@@ -264,7 +264,7 @@ function MainContent({ weather, loading, units }) {
                   return (
                     <div
                       key={entry.time}
-                      className="hourly-forecast-card p-4 flex justify-between items-center"
+                      className="hourly-forecast-card p-4  flex justify-between items-center"
                     >
                       <div className="time-container flex items-center gap-2">
                         {icon ? (
