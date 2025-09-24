@@ -80,7 +80,7 @@ function MainContent({ weather, loading, units }) {
   const currentIcon = currentTemp !== null ? getWeatherIcon(currentTemp) : null;
 
   return (
-    <main className="main-content flex mt-8 pl-24 pr-8 gap-8">
+    <main className="main-content flex flex-col lg:flex-row  mt-8 lg:pl-24 lg:pr-8 gap-8">
       {/* LEFT: daily + banner */}
       <div className="daily-forecast-container flex-2 flex flex-col gap-8">
         <div className="weather-banner-section flex flex-col gap-8 px-4 ">
@@ -118,7 +118,7 @@ function MainContent({ weather, loading, units }) {
           )}
 
           {/* metrics */}
-          <div className="weather-conditions-metrics-container flex gap-4">
+          <div className="grid grid-cols-2 lg:flex gap-4">
             {[
               {
                 title: "Feels like",
@@ -143,7 +143,7 @@ function MainContent({ weather, loading, units }) {
                   : null,
               },
             ].map((m) => (
-              <div key={m.title} className="weather-metric">
+              <div key={m.title} className="weather-metric flex-1 py-4">
                 <h3 className="weather-metric-header">{m.title}</h3>
                 <p className="weather-metric-value">
                   {loading ? (
@@ -160,14 +160,16 @@ function MainContent({ weather, loading, units }) {
         </div>
         {/* DAILY FORECAST */}
         <div className="daily-forecast-section mt-8">
-          <h2 className="daily-forecast-header mb-4">Daily Forecast</h2>
-          <div className="daily-forecast-cards flex gap-4">
+          <h2 className="daily-forecast-header mb-4 ml-4 lg:ml-0">
+            Daily Forecast
+          </h2>
+          <div className="daily-forecast-cards flex flex-row lg:flex-row gap-4 flex-wrap">
             {loading
               ? // render skeleton daily cards
                 Array.from({ length: 7 }).map((_, i) => (
                   <div
                     key={`skeleton-day-${i}`}
-                    className="daily-forecast-card p-4 flex flex-col items-center bg-white/5 rounded-lg"
+                    className="daily-forecast-card w-28 flex-shrink-0 p-4 flex flex-col items-center bg-white/5 rounded-lg"
                   >
                     <div className="h-4 w-12 bg-gray-300 rounded mb-2 animate-pulse" />
                     <div className="h-12 w-12 bg-gray-300 rounded-full mb-2 animate-pulse" />
@@ -181,7 +183,7 @@ function MainContent({ weather, loading, units }) {
                   return (
                     <div
                       key={date}
-                      className="daily-forecast-card p-4 flex flex-col items-center"
+                      className="daily-forecast-card w-28 lg:w-22 flex-shrink-0 p-4 flex flex-col items-center "
                     >
                       <p className="daily-forecast-day mb-2">
                         {new Date(date).toLocaleDateString("en-US", {
@@ -207,7 +209,7 @@ function MainContent({ weather, loading, units }) {
       </div>
 
       {/* RIGHT: hourly */}
-      <div className="hourly-forecast-container flex-1">
+      <div className="hourly-forecast-container flex-1 ">
         <div className="hourly-forecast-section p-4">
           <div className="hourly-forecast-header flex justify-between items-center pt-6">
             <h2 className="flex item-center ">Hourly Forecast</h2>
