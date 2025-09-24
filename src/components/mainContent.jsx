@@ -97,7 +97,7 @@ function MainContent({ weather, loading, units }) {
                 <h2 className="weather-location text-3xl lg:text-2xl font-semibold">
                   {city}, {country}
                 </h2>
-                <p className="weather-date text-white-200 font-light pl-4">
+                <p className="weather-date text-white-200 font-light pl-4 lg:pl-0">
                   {new Date().toLocaleDateString("en-US", {
                     weekday: "long",
                     month: "short",
@@ -106,7 +106,7 @@ function MainContent({ weather, loading, units }) {
                   })}
                 </p>
               </div>
-              <div className="weather-icon-temp-container w-full flex gap-4 px-4 items-center lg:gap-8">
+              <div className="weather-icon-temp-container  flex gap-4 px-4 items-center lg:gap-8">
                 <div className="weather-icon">
                   <img src={currentIcon} alt="Weather Icon" />
                 </div>
@@ -145,7 +145,7 @@ function MainContent({ weather, loading, units }) {
             ].map((m) => (
               <div key={m.title} className="weather-metric flex-1 py-4">
                 <h3 className="weather-metric-header">{m.title}</h3>
-                <p className="weather-metric-value">
+                <p className="weather-metric-value text-3xl">
                   {loading ? (
                     <span className="inline-block w-20 h-6 bg-gray-300 rounded animate-pulse" />
                   ) : m.value !== null ? (
@@ -183,7 +183,7 @@ function MainContent({ weather, loading, units }) {
                   return (
                     <div
                       key={date}
-                      className="daily-forecast-card  w-28 lg:w-22 flex-shrink-0 p-4 flex flex-col items-center "
+                      className="daily-forecast-card  w-26 lg:w-22 flex-shrink-0 p-4 flex flex-col items-center "
                     >
                       <p className="daily-forecast-day mb-2">
                         {new Date(date).toLocaleDateString("en-US", {
