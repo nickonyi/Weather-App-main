@@ -42,7 +42,6 @@ function SearchBox({ setWeather, setLoading, units }) {
       const weatherRes = await fetch(url);
 
       const weatherData = await weatherRes.json();
-      console.log(weatherData);
 
       setWeather({
         city: name,

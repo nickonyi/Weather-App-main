@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const [units, setUnits] = useState({
     temperature: "celsius",
     wind: "kmh",
@@ -24,11 +25,11 @@ function App() {
           const latitude = pos.coords.latitude;
           const longitude = pos.coords.longitude;
 
-          const urlo = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
-          const resp = await fetch(urlo);
-          const location = await resp.json();
+          const geourl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+          const georesp = await fetch(geourl);
+          const location = await georesp.json();
           const city = location.city;
-          const country = location.country;
+          const country = location.countryName;
 
           const params = new URLSearchParams({
             latitude,
@@ -45,6 +46,7 @@ function App() {
           });
 
           const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+
           const res = await fetch(url);
           const data = await res.json();
 
@@ -64,6 +66,33 @@ function App() {
     }
   }, []);
 
+  //load from the local storage
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(stored);
+  }, []);
+
+  //save when favorites change
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavourite = (city, country) => {
+    setFavorites((prev) => {
+      const exists = prev.some(
+        (fav) => fav.city === city && fav.country === country
+      );
+
+      if (exists) {
+        return prev.filter(
+          (fav) => fav.city !== city || fav.country !== country
+        );
+      } else {
+        return [...prev, { city, country }];
+      }
+    });
+  };
+
   return (
     <>
       <Navbar units={units} setUnits={setUnits} />
@@ -73,7 +102,18 @@ function App() {
           setLoading={setLoading}
           units={units}
         />
-        <MainContent weather={weather} loading={loading} units={units} />
+        <MainContent
+          weather={weather}
+          loading={loading}
+          units={units}
+          isFavorite={favorites.some(
+            (fav) =>
+              fav.city === weather?.city && fav.country === weather?.country
+          )}
+          onToggleFavorite={() =>
+            toggleFavourite(weather?.city, weather?.country)
+          }
+        />
       </ErrorBoundary>
     </>
   );

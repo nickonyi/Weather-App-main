@@ -3,9 +3,16 @@ import iconOvercast from "../assets/images/icon-overcast.webp";
 import iconRain from "../assets/images/icon-rain.webp";
 import iconSnow from "../assets/images/icon-snow.webp";
 import iconStorm from "../assets/images/icon-storm.webp";
+import { FaHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-function MainContent({ weather, loading, units }) {
+function MainContent({
+  weather,
+  loading,
+  units,
+  isFavorite,
+  onToggleFavorite,
+}) {
   if (!weather && !loading) {
     return null;
   }
@@ -94,9 +101,17 @@ function MainContent({ weather, loading, units }) {
           ) : (
             <div className="weather-conditions-container rounded-lg h-64 flex flex-col justify-center lg:flex-row lg:justify-between items-center px-8">
               <div className="weather-text-container flex flex-col gap-2">
-                <h2 className="weather-location text-3xl lg:text-2xl font-semibold">
-                  {city}, {country}
-                </h2>
+                <div className="flex gap-4">
+                  <h2 className="weather-location text-3xl lg:text-2xl font-semibold">
+                    {city}, {country}
+                  </h2>
+                  <button onClick={onToggleFavorite} className="cursor-pointer">
+                    <FaHeart
+                      className={isFavorite ? "text-red-500" : "text-gray-400"}
+                    />
+                  </button>
+                </div>
+
                 <p className="weather-date text-white-200 font-light pl-4 lg:pl-0">
                   {new Date().toLocaleDateString("en-US", {
                     weekday: "long",
