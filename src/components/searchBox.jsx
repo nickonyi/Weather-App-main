@@ -1,7 +1,15 @@
 import { useState } from "react";
 import search from "../assets/images/icon-search.svg";
+import { FaSpinner } from "react-icons/fa";
 
-function SearchBox({ setWeather, setLoading, units }) {
+function SearchBox({
+  setWeather,
+  setLoading,
+  units,
+  favorites,
+  loadingFavorites,
+  onSelectFavorite,
+}) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
 
@@ -61,23 +69,52 @@ function SearchBox({ setWeather, setLoading, units }) {
       <p className="searchbox-text w-fit text-5xl px-6 lg:px-0">
         How's the sky looking today?
       </p>
-      <div className="search-box-input-container w-64 lg:w-fit flex flex-col lg:flex-row gap-4">
-        <input
-          type="text"
-          id="search-input"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="rounded-md px-12 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Search for a place..."
-        />
-        <img className="search-img" src={search} alt="" />
-        <button
-          id="search-btn"
-          onClick={handleSearch}
-          className="rounded-md cursor-pointer px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Search
-        </button>
+      <div className="search-box-input-container w-64 h-6 lg:w-fit flex flex-col gap-0">
+        <div id="input-container" className="flex flex-col lg:flex-row gap-4">
+          <input
+            type="text"
+            id="search-input"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="rounded-md px-12 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search for a place..."
+          />
+          <img className="search-img" src={search} alt="" />
+          <button
+            id="search-btn"
+            onClick={handleSearch}
+            className="rounded-md cursor-pointer px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Search
+          </button>
+        </div>
+        {loadingFavorites ? (
+          <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2 flex  items-center gap-2">
+            <FaSpinner className="animate-spin text-xl" />
+            <span>Search in progress…</span>
+          </div>
+        ) : (
+          <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2">
+            {favorites.length === 0 ? (
+              <div className="text-center text-gray-400 py-2">
+                No favorites yet. Search and save cities to see them here.
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {favorites.map((fav, idx) => (
+                  <button
+                    id="fav-btn"
+                    key={idx}
+                    onClick={() => onSelectFavorite(fav.city, fav.country)}
+                    className="w-full flex justify-between items-center px-3 py-2 rounded-md transition"
+                  >
+                    <span>{fav.city}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {error && <p className="text-white-500 font-semibold text-lg">{error}</p>}
     </div>

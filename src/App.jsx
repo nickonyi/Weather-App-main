@@ -19,6 +19,7 @@ function App() {
     wind: "kmh",
     precipitation: "mm",
   });
+  const [loadingFavorites, setLoadingFavorites] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -71,8 +72,12 @@ function App() {
 
   //load from the local storage
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(stored);
+    setLoadingFavorites(true);
+    setTimeout(() => {
+      const stored = JSON.parse(localStorage.getItem("favorites")) || [];
+      setFavorites(stored);
+      setLoadingFavorites(false);
+    }, 1500); // Simulate loading delay
   }, []);
 
   //save when favorites change
@@ -96,6 +101,48 @@ function App() {
     });
   };
 
+  const handleSelectFavorite = async (city, country) => {
+    setLoading(true);
+    try {
+      // run same logic as handleSearch but using city+country
+      const geoRes = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&country=${country}`
+      );
+      const geoData = await geoRes.json();
+      const { latitude, longitude, name, country: ctry } = geoData.results[0];
+
+      const params = new URLSearchParams({
+        latitude,
+        longitude,
+        current:
+          "temperature_2m,relative_humidity_2m,precipitation,weathercode,windspeed_10m",
+        hourly: "temperature_2m,weathercode",
+        daily:
+          "temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum",
+        timezone: "auto",
+        temperature_unit: units.temperature,
+        windspeed_unit: units.wind,
+        precipitation_unit: units.precipitation,
+      });
+
+      const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+      const weatherRes = await fetch(url);
+      const weatherData = await weatherRes.json();
+
+      setWeather({
+        city: name,
+        country: ctry,
+        current: weatherData.current,
+        daily: weatherData.daily,
+        hourly: weatherData.hourly,
+      });
+    } catch (err) {
+      console.error("Error fetching favorite weather:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Navbar units={units} setUnits={setUnits} />
@@ -104,6 +151,9 @@ function App() {
           setWeather={setWeather}
           setLoading={setLoading}
           units={units}
+          favorites={favorites}
+          loadingFavorites={loadingFavorites}
+          onSelectFavorite={handleSelectFavorite}
         />
         <MainContent
           weather={weather}

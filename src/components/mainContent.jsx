@@ -107,7 +107,10 @@ function MainContent({
                   </h2>
                   <button onClick={onToggleFavorite} className="cursor-pointer">
                     <FaHeart
-                      className={isFavorite ? "text-red-500" : "text-gray-400"}
+                      className={`transition-colors ${
+                        isFavorite ? "text-red-500" : "text-gray-400"
+                      }`}
+                      size={20}
                     />
                   </button>
                 </div>

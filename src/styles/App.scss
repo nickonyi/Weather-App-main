@@ -37,10 +37,17 @@ body {
   background-color: $neutral-800;
 }
 
-#search-input {
+#search-input,
+.favorites-bar {
   background-color: $neutral-800;
   width: 400px;
 }
+#fav-btn:hover {
+  cursor: pointer;
+  background-color: $neutral-700;
+  border: 1px solid $neutral-300;
+}
+
 #search-btn {
   background-color: $blue-500;
 }
