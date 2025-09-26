@@ -10,7 +10,10 @@ import { useEffect, useState } from "react";
 function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem("favorites");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [units, setUnits] = useState({
     temperature: "celsius",
     wind: "kmh",
