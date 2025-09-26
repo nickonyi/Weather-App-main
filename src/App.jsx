@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showFavoritesBar, setShowFavoritesBar] = useState(false);
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
@@ -73,11 +74,25 @@ function App() {
   //load from the local storage
   useEffect(() => {
     setLoadingFavorites(true);
-    setTimeout(() => {
+
+    // Simulate loading
+    const timer = setTimeout(() => {
       const stored = JSON.parse(localStorage.getItem("favorites")) || [];
       setFavorites(stored);
+
+      if (stored.length > 0) {
+        setShowFavoritesBar(true);
+      } else {
+        // show the "no favorites" message briefly
+        setShowFavoritesBar(true);
+        setTimeout(() => setShowFavoritesBar(false), 2000);
+      }
+
+      // end loading AFTER the bar has been prepared
       setLoadingFavorites(false);
-    }, 1500); // Simulate loading delay
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   //save when favorites change
@@ -136,6 +151,7 @@ function App() {
         daily: weatherData.daily,
         hourly: weatherData.hourly,
       });
+      setShowFavoritesBar(false);
     } catch (err) {
       console.error("Error fetching favorite weather:", err);
     } finally {
@@ -154,6 +170,8 @@ function App() {
           favorites={favorites}
           loadingFavorites={loadingFavorites}
           onSelectFavorite={handleSelectFavorite}
+          showFavoriteBar={showFavoritesBar}
+          setShowFavoriteBar={setShowFavoritesBar}
         />
         <MainContent
           weather={weather}

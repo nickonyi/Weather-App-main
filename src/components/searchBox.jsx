@@ -1,6 +1,6 @@
 import { useState } from "react";
 import search from "../assets/images/icon-search.svg";
-import { FaSpinner } from "react-icons/fa";
+import FavoritesBar from "./FavoritesBar";
 
 function SearchBox({
   setWeather,
@@ -9,6 +9,8 @@ function SearchBox({
   favorites,
   loadingFavorites,
   onSelectFavorite,
+  showFavoritesBar,
+  setShowFavoritesBar,
 }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
@@ -25,6 +27,7 @@ function SearchBox({
 
       const geoData = await geoRes.json();
       if (!geoData.results || geoData.results.length === 0) {
+        setShowFavoritesBar(false);
         setError("No search result found!");
         return;
       }
@@ -58,6 +61,7 @@ function SearchBox({
         daily: weatherData.daily,
         hourly: weatherData.hourly,
       });
+      setShowFavoriteBar(false);
     } catch (err) {
       setError("Failed to fetch weather data. Please try again.");
     } finally {
@@ -65,7 +69,10 @@ function SearchBox({
     }
   };
   return (
-    <div className="search-box-container mt-4 flex gap-10 p-4 flex-col items-center ">
+    <div
+      className="search
+      setShowFavoriteBar-box-container mt-4 flex gap-10 p-4 flex-col items-center "
+    >
       <p className="searchbox-text w-fit text-5xl px-6 lg:px-0">
         How's the sky looking today?
       </p>
@@ -88,31 +95,13 @@ function SearchBox({
             Search
           </button>
         </div>
-        {loadingFavorites ? (
-          <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2 flex  items-center gap-2">
-            <FaSpinner className="animate-spin text-xl" />
-            <span>Search in progress…</span>
-          </div>
-        ) : (
+        {showFavoritesBar && (
           <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2">
-            {favorites.length === 0 ? (
-              <div className="text-center text-gray-400 py-2">
-                No favorites yet. Search and save cities to see them here.
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {favorites.map((fav, idx) => (
-                  <button
-                    id="fav-btn"
-                    key={idx}
-                    onClick={() => onSelectFavorite(fav.city, fav.country)}
-                    className="w-full flex justify-between items-center px-3 py-2 rounded-md transition"
-                  >
-                    <span>{fav.city}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+            <FavoritesBar
+              favorites={favorites}
+              onSelectFavorite={onSelectFavorite}
+              loading={loadingFavorites}
+            />
           </div>
         )}
       </div>
