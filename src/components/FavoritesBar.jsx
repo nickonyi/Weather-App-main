@@ -3,7 +3,16 @@ import { FaSpinner } from "react-icons/fa";
 function FavoritesBar({ favorites, onSelectFavorite, loading }) {
   console.log(loading);
 
-  if (!favorites.length && !loading) {
+  if (loading) {
+    return (
+      <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2 flex  items-center gap-2">
+        <FaSpinner className="animate-spin text-xl" />
+        <span>Search in progress…</span>
+      </div>
+    );
+  }
+
+  if (!favorites.length) {
     return (
       <div className="text-center text-gray-400 py-2">
         No favorites yet. Search and save cities to see them here.
@@ -11,12 +20,6 @@ function FavoritesBar({ favorites, onSelectFavorite, loading }) {
     );
   }
 
-  if (loading) {
-    <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2 flex  items-center gap-2">
-      <FaSpinner className="animate-spin text-xl" />
-      <span>Search in progress…</span>
-    </div>;
-  }
   return (
     <div className="flex flex-col gap-2">
       {favorites.map((fav, idx) => (

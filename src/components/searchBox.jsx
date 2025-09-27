@@ -14,6 +14,7 @@ function SearchBox({
 }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
+  console.log(loadingFavorites);
 
   const handleSearch = async () => {
     setError("");
@@ -61,7 +62,7 @@ function SearchBox({
         daily: weatherData.daily,
         hourly: weatherData.hourly,
       });
-      setShowFavoriteBar(false);
+      setShowFavoritesBar(false);
     } catch (err) {
       setError("Failed to fetch weather data. Please try again.");
     } finally {
@@ -95,6 +96,7 @@ function SearchBox({
             Search
           </button>
         </div>
+
         {showFavoritesBar && (
           <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2">
             <FavoritesBar

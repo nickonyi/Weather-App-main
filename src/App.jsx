@@ -71,25 +71,20 @@ function App() {
     }
   }, []);
 
-  //load from the local storage
   useEffect(() => {
     setLoadingFavorites(true);
+    setShowFavoritesBar(true); // show bar immediately
 
-    // Simulate loading
     const timer = setTimeout(() => {
       const stored = JSON.parse(localStorage.getItem("favorites")) || [];
       setFavorites(stored);
 
-      if (stored.length > 0) {
-        setShowFavoritesBar(true);
-      } else {
-        // show the "no favorites" message briefly
-        setShowFavoritesBar(true);
-        setTimeout(() => setShowFavoritesBar(false), 2000);
+      if (stored.length === 0) {
+        // hide bar after a delay if there are no favorites
+        setTimeout(() => setShowFavoritesBar(false), 4000);
       }
 
-      // end loading AFTER the bar has been prepared
-      setLoadingFavorites(false);
+      setLoadingFavorites(false); // done loading
     }, 1500);
 
     return () => clearTimeout(timer);
@@ -170,8 +165,8 @@ function App() {
           favorites={favorites}
           loadingFavorites={loadingFavorites}
           onSelectFavorite={handleSelectFavorite}
-          showFavoriteBar={showFavoritesBar}
-          setShowFavoriteBar={setShowFavoritesBar}
+          showFavoritesBar={showFavoritesBar}
+          setShowFavoritesBar={setShowFavoritesBar}
         />
         <MainContent
           weather={weather}
