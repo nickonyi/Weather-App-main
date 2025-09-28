@@ -11,10 +11,10 @@ function SearchBox({
   onSelectFavorite,
   showFavoritesBar,
   setShowFavoritesBar,
+  isExiting,
 }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
-  console.log(loadingFavorites);
 
   const handleSearch = async () => {
     setError("");
@@ -103,6 +103,7 @@ function SearchBox({
               favorites={favorites}
               onSelectFavorite={onSelectFavorite}
               loading={loadingFavorites}
+              isExiting={isExiting}
             />
           </div>
         )}

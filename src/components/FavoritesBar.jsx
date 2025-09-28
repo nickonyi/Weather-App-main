@@ -1,11 +1,18 @@
 import { FaSpinner } from "react-icons/fa";
 
-function FavoritesBar({ favorites, onSelectFavorite, loading }) {
-  console.log(loading);
+function FavoritesBar({ favorites, onSelectFavorite, loading, isExiting }) {
+  console.log(isExiting);
 
   if (loading) {
     return (
-      <div className="favorites-bar w-64 lg:w-fit bg-gray-800 text-white rounded-md mt-2 p-2 flex  items-center gap-2">
+      <div
+        className={`favorites-bar bg-gray-800 text-white rounded-md p-2 w-64 transition-transform duration-500 ease-in-out
+            ${
+              isExiting
+                ? "-translate-y-10 opacity-0"
+                : "translate-y-0 opacity-100"
+            }`}
+      >
         <FaSpinner className="animate-spin text-xl" />
         <span>Search in progress…</span>
       </div>
