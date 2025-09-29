@@ -77,7 +77,7 @@ function App() {
 
   useEffect(() => {
     setLoadingFavorites(true);
-    setShowFavoritesBar(true);
+    //setShowFavoritesBar(true);
 
     const timer = setTimeout(() => {
       setIsExiting(true);
