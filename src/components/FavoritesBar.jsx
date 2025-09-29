@@ -1,8 +1,6 @@
 import { FaSpinner } from "react-icons/fa";
 
 function FavoritesBar({ favorites, onSelectFavorite, loading, isExiting }) {
-  console.log(isExiting);
-
   if (loading) {
     return (
       <div
