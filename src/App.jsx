@@ -6,6 +6,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import "./styles/App.scss";
 import "./styles/index.css";
 import { useEffect, useState } from "react";
+import CompareDrawer from "./components/CompareDrawer";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -22,6 +23,8 @@ function App() {
     precipitation: "mm",
   });
   const [loadingFavorites, setLoadingFavorites] = useState(false);
+  const [showCompareDrawer, setShowCompareDrawer] = useState(false);
+  const [compareCities, setCompareCities] = useState([]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -159,6 +162,11 @@ function App() {
     }
   };
 
+  const handleCompare = (city) => {
+    setCompareCities(city);
+    setShowCompareDrawer(false);
+  };
+
   return (
     <>
       <Navbar units={units} setUnits={setUnits} />
@@ -185,6 +193,12 @@ function App() {
           onToggleFavorite={() =>
             toggleFavourite(weather?.city, weather?.country)
           }
+          onOpenCompare={() => setShowCompareDrawer(true)}
+        />
+        <CompareDrawer
+          isOpen={showCompareDrawer}
+          onClose={() => setShowCompareDrawer(false)}
+          onCompare={() => handleCompare(compareCities)}
         />
       </ErrorBoundary>
     </>
