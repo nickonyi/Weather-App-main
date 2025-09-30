@@ -166,9 +166,12 @@ body {
   cursor: pointer;
 }
 #side-drawer {
-  background-color: $neutral-800;
-  border-left: 2px solid $neutral-600;
+  background-color: $neutral-900;
   padding: 20px;
+}
+#drawer-card {
+  background-color: $neutral-800;
+  border-radius: 15px;
 }
 
 @media screen and (max-width: 768px) {

@@ -26,7 +26,10 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-4 mt-8 flex flex-col  gap-4 h-80 border">
+        <div
+          id="drawer-card"
+          className="p-4 mt-8 flex flex-col  gap-4 h-80 border"
+        >
           <p>Select Location to compare</p>
           {/* Search bar */}
           <div className="search-bar flex gap-2 ">
