@@ -1,14 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import search from "../assets/images/icon-search.svg";
 import { FiX } from "react-icons/fi";
 
 export default function CompareDrawer({ isOpen, onClose, onCompare }) {
   const [selectedCities, setSelectedCities] = useState([]);
   const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  console.log(suggestions);
+  console.log(suggestions.length);
 
-  const handleAddCity = () => {
-    if (query && !selectedCities.includes(query)) {
-      setSelectedCities([...selectedCities, query]);
+  useEffect(() => {
+    if (query.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    const fetchCities = async () => {
+      try {
+        const res = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5&language=en&format=json`
+        );
+        const data = await res.json();
+        setSuggestions(data.results || []);
+      } catch (error) {
+        console.log("Error fetching city suggestions", error);
+      }
+    };
+    fetchCities();
+  }, [query]);
+
+  const handleClickedCity = (city) => {
+    const cityData = {
+      name: city.name,
+      country: city.country,
+      lat: city.latitude,
+      lon: city.longitude,
+    };
+
+    if (
+      !selectedCities.find(
+        (c) => c.lat === cityData.lat && c.lon === cityData.lon
+      )
+    ) {
+      setSelectedCities([...selectedCities, cityData]);
       setQuery("");
+      setSuggestions([]);
     }
   };
 
@@ -30,20 +66,27 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
         <div id="drawer-card" className="p-4 mt-8 flex flex-col  gap-4 h-80 ">
           <p>Select Location to compare</p>
           {/* Search bar */}
-          <div className="search-bar flex gap-2 ">
+          <div className="search-bar relative ">
             <input
               type="text"
               placeholder="Search for a place..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className=" p-2 rounded "
+              className="w-full p-2 rounded "
             />
-            <button
-              onClick={handleAddCity}
-              className="bg-blue-500 text-white p-2 rounded "
-            >
-              Add
-            </button>
+            {suggestions.length > 0 && (
+              <ul className="absolute top-full left-0 w-full  shadow-lg rounded mt-1 z-50 max-h-40 overflow-y-auto">
+                {suggestions.map((s, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleClickedCity(s)}
+                    className="p-2 hover:bg-gray-700 cursor-pointer"
+                  >
+                    {s.name},{s.country}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Selected cities */}
@@ -53,7 +96,9 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
                 key={idx}
                 className="city-bar flex justify-between items-center p-2  rounded"
               >
-                <span>{city}</span>
+                <span>
+                  {city.name}, {city.country}
+                </span>
                 <button
                   onClick={() =>
                     setSelectedCities(selectedCities.filter((c) => c !== city))
