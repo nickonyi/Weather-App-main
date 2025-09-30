@@ -165,6 +165,11 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+.search-bar input {
+  background-color: $neutral-700;
+  color: $neutral-0;
+  border: none;
+}
 #side-drawer {
   background-color: $neutral-900;
   padding: 20px;
@@ -172,6 +177,9 @@ body {
 #drawer-card {
   background-color: $neutral-800;
   border-radius: 15px;
+}
+.city-bar {
+  background-color: $neutral-700;
 }
 
 @media screen and (max-width: 768px) {

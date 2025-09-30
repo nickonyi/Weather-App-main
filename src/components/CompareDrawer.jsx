@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiX } from "react-icons/fi";
 
 export default function CompareDrawer({ isOpen, onClose, onCompare }) {
   const [selectedCities, setSelectedCities] = useState([]);
@@ -22,23 +23,20 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
 
       <div
         id="side-drawer"
-        className={`fixed top-0 right-0 lg:w-80 w-full h-full  shadow-lg z-50 transform transition-transform ${
+        className={`fixed top-0 right-0 lg:w-80 w-full h-full  shadow-lg z-50 transform transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div
-          id="drawer-card"
-          className="p-4 mt-8 flex flex-col  gap-4 h-80 border"
-        >
+        <div id="drawer-card" className="p-4 mt-8 flex flex-col  gap-4 h-80 ">
           <p>Select Location to compare</p>
           {/* Search bar */}
           <div className="search-bar flex gap-2 ">
             <input
               type="text"
-              placeholder="Search city..."
+              placeholder="Search for a place..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="border p-2 rounded "
+              className=" p-2 rounded "
             />
             <button
               onClick={handleAddCity}
@@ -53,15 +51,16 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
             {selectedCities.map((city, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center p-2 bg-gray-100 rounded"
+                className="city-bar flex justify-between items-center p-2  rounded"
               >
                 <span>{city}</span>
                 <button
                   onClick={() =>
                     setSelectedCities(selectedCities.filter((c) => c !== city))
                   }
+                  className="p-1 "
                 >
-                  ❌
+                  <FiX className="w-4 h-4 text-white-600 cursor-pointer" />
                 </button>
               </div>
             ))}
@@ -70,7 +69,7 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
           {/* Compare button */}
           <button
             onClick={() => onCompare(selectedCities)}
-            className="mt-auto bg-green-500 text-white p-2 rounded"
+            className="mt-auto bg-blue-500 text-white p-2 rounded"
           >
             Compare Now
           </button>
