@@ -75,7 +75,7 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
               className="w-full p-2 rounded "
             />
             {suggestions.length > 0 && (
-              <ul className="absolute top-full left-0 w-full  shadow-lg rounded mt-1 z-50 max-h-40 overflow-y-auto">
+              <ul className="absolute top-full left-0 w-full bg-gray-700  shadow-lg rounded mt-1 z-60 max-h-40 overflow-y-auto">
                 {suggestions.map((s, idx) => (
                   <li
                     key={idx}
