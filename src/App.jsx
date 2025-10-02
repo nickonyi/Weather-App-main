@@ -7,6 +7,7 @@ import "./styles/App.scss";
 import "./styles/index.css";
 import { useEffect, useState } from "react";
 import CompareDrawer from "./components/CompareDrawer";
+import CompareUI from "./pages/CompareUI";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -25,6 +26,7 @@ function App() {
   const [loadingFavorites, setLoadingFavorites] = useState(false);
   const [showCompareDrawer, setShowCompareDrawer] = useState(false);
   const [compareCities, setCompareCities] = useState([]);
+  const [view, setView] = useState("main");
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -164,6 +166,7 @@ function App() {
 
   const handleCompare = (city) => {
     setCompareCities(city);
+    setView("compare");
     setShowCompareDrawer(false);
   };
 
@@ -171,35 +174,42 @@ function App() {
     <>
       <Navbar units={units} setUnits={setUnits} />
       <ErrorBoundary FallbackComponent={Error}>
-        <SearchBox
-          setWeather={setWeather}
-          setLoading={setLoading}
-          units={units}
-          favorites={favorites}
-          loadingFavorites={loadingFavorites}
-          onSelectFavorite={handleSelectFavorite}
-          showFavoritesBar={showFavoritesBar}
-          setShowFavoritesBar={setShowFavoritesBar}
-          isExiting={isExiting}
-        />
-        <MainContent
-          weather={weather}
-          loading={loading}
-          units={units}
-          isFavorite={favorites.some(
-            (fav) =>
-              fav.city === weather?.city && fav.country === weather?.country
-          )}
-          onToggleFavorite={() =>
-            toggleFavourite(weather?.city, weather?.country)
-          }
-          onOpenCompare={() => setShowCompareDrawer(true)}
-        />
-        <CompareDrawer
-          isOpen={showCompareDrawer}
-          onClose={() => setShowCompareDrawer(false)}
-          onCompare={() => handleCompare(compareCities)}
-        />
+        {view === "main" && (
+          <>
+            <SearchBox
+              setWeather={setWeather}
+              setLoading={setLoading}
+              units={units}
+              favorites={favorites}
+              loadingFavorites={loadingFavorites}
+              onSelectFavorite={handleSelectFavorite}
+              showFavoritesBar={showFavoritesBar}
+              setShowFavoritesBar={setShowFavoritesBar}
+              isExiting={isExiting}
+            />
+            <MainContent
+              weather={weather}
+              loading={loading}
+              units={units}
+              isFavorite={favorites.some(
+                (fav) =>
+                  fav.city === weather?.city && fav.country === weather?.country
+              )}
+              onToggleFavorite={() =>
+                toggleFavourite(weather?.city, weather?.country)
+              }
+              onOpenCompare={() => setShowCompareDrawer(true)}
+            />
+            <CompareDrawer
+              isOpen={showCompareDrawer}
+              onClose={() => setShowCompareDrawer(false)}
+              onCompare={() => handleCompare(compareCities)}
+            />
+          </>
+        )}
+        {view === "compare" && (
+          <CompareUI cities={compareCities} onBack={() => setView("main")} />
+        )}
       </ErrorBoundary>
     </>
   );
