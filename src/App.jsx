@@ -164,8 +164,8 @@ function App() {
     }
   };
 
-  const handleCompare = (city) => {
-    setCompareCities(city);
+  const handleCompare = (cities) => {
+    setCompareCities(cities);
     setView("compare");
     setShowCompareDrawer(false);
   };
@@ -203,7 +203,7 @@ function App() {
             <CompareDrawer
               isOpen={showCompareDrawer}
               onClose={() => setShowCompareDrawer(false)}
-              onCompare={() => handleCompare(compareCities)}
+              onCompare={handleCompare}
             />
           </>
         )}

@@ -6,8 +6,6 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
   const [selectedCities, setSelectedCities] = useState([]);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  console.log(suggestions);
-  console.log(suggestions.length);
 
   useEffect(() => {
     if (query.length < 2) {
