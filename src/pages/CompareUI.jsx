@@ -36,13 +36,15 @@ function CompareUI({ cities, onBack }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:px-56 gap-4">
         {weatherData.map((city, idx) => (
-          <div key={idx} className="weather-card p-4 rounded shadow">
+          <div key={idx} className="weather-card p-4 rounded shadow pl-6">
             <h2 className="font-bold">
               {city.name}, {city.country}
             </h2>
-            <div className="weather-icon-container">
+            <div className="weather-icon-container flex gap-4 items-center">
               <img src={getWeatherIcon(city.feelsLike)} alt="weather icon" />
-              <p className="weather-temp">{Math.floor(city.feelsLike)}°</p>
+              <p className="weather-temp text-6xl font-bold">
+                {Math.floor(city.feelsLike)}°
+              </p>
             </div>
             <ul className="mt-2 space-y-1">
               <li>
@@ -55,7 +57,7 @@ function CompareUI({ cities, onBack }) {
                 <strong>Wind:</strong> {city.wind} km/h
               </li>
               <li>
-                <strong>Precipitation:</strong> {city.precipitation} mm
+                <strong>Precip:</strong> {city.precipitation} mm
               </li>
             </ul>
           </div>

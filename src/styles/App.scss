@@ -186,6 +186,10 @@ body {
   background-color: $neutral-850;
   border-radius: 15px;
 }
+.weather-icon-container img {
+  width: 100px;
+  height: 100px;
+}
 
 @media screen and (max-width: 768px) {
   body {
