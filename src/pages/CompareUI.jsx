@@ -27,17 +27,20 @@ function CompareUI({ cities, onBack }) {
   }, [cities]);
   return (
     <div className="p-6 flex flex-col">
-      <button onClick={onBack} className="mt-6 bg-gray-300 px-4 py-2 rounded">
+      <button
+        onClick={onBack}
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded w-24 cursor-pointer"
+      >
         Back
       </button>
-      <h1 className="text-xl font-bold mb-4 flex self-center">
+      <h1 className="text-xl lg:text-3xl font-normal mb-4 flex self-center">
         Compare weather locations
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:px-56 gap-4">
         {weatherData.map((city, idx) => (
           <div key={idx} className="weather-card p-4 rounded shadow pl-6">
-            <h2 className="font-bold">
+            <h2 className="font-semibold py-4 text-2xl">
               {city.name}, {city.country}
             </h2>
             <div className="weather-icon-container flex gap-4 items-center">
