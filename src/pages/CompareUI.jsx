@@ -1,26 +1,66 @@
+import { useEffect, useState } from "react";
+import { getWeatherIcon } from "../utility/utilityfunction";
+
 function CompareUI({ cities, onBack }) {
-  console.log(cities);
+  const [weatherData, setWeatherData] = useState([]);
 
+  useEffect(() => {
+    const fetchWeather = async () => {
+      const promises = cities.map(async (city) => {
+        const res = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true&hourly=relative_humidity_2m,precipitation`
+        );
+        const data = await res.json();
+        return {
+          name: city.name,
+          country: city.country,
+          feelsLike: data.current_weather.temperature,
+          humidity: data.hourly.relative_humidity_2m?.[0],
+          wind: data.current_weather.windspeed,
+          precipitation: data.hourly.precipitation?.[0],
+        };
+      });
+      setWeatherData(await Promise.all(promises));
+    };
+
+    fetchWeather();
+  }, [cities]);
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Comparison</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {cities.map((city, idx) => (
-          <div key={idx} className="p-4 bg-gray-500 rounded shadow">
-            <h2 className="font-bold">
-              {city.name}, {city.country}
-            </h2>
-            <p>Lat: {city.lat}</p>
-            <p>Lon: {city.lon}</p>
-            {/* later we can display weather data here */}
-          </div>
-        ))}
-      </div>
-
+    <div className="p-6 flex flex-col">
       <button onClick={onBack} className="mt-6 bg-gray-300 px-4 py-2 rounded">
         Back
       </button>
+      <h1 className="text-xl font-bold mb-4 flex self-center">
+        Compare weather locations
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:px-56 gap-4">
+        {weatherData.map((city, idx) => (
+          <div key={idx} className="weather-card p-4 rounded shadow">
+            <h2 className="font-bold">
+              {city.name}, {city.country}
+            </h2>
+            <div className="weather-icon-container">
+              <img src={getWeatherIcon(city.feelsLike)} alt="weather icon" />
+              <p className="weather-temp">{Math.floor(city.feelsLike)}°</p>
+            </div>
+            <ul className="mt-2 space-y-1">
+              <li>
+                <strong>Feels Like:</strong> {Math.floor(city.feelsLike)}°
+              </li>
+              <li>
+                <strong>Humidity:</strong> {city.humidity}%
+              </li>
+              <li>
+                <strong>Wind:</strong> {city.wind} km/h
+              </li>
+              <li>
+                <strong>Precipitation:</strong> {city.precipitation} mm
+              </li>
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

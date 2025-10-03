@@ -1,8 +1,4 @@
-import iconSunny from "../assets/images/icon-sunny.webp";
-import iconOvercast from "../assets/images/icon-overcast.webp";
-import iconRain from "../assets/images/icon-rain.webp";
-import iconSnow from "../assets/images/icon-snow.webp";
-import iconStorm from "../assets/images/icon-storm.webp";
+import { getWeatherIcon } from "../utility/utilityfunction";
 import { FaHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
@@ -69,20 +65,6 @@ function MainContent({
       setSelectedDay[days[0]];
     }
   }, [days]);
-
-  const getWeatherIcon = (tempMax) => {
-    if (tempMax >= 30) {
-      return iconSunny;
-    } else if (tempMax >= 20) {
-      return iconOvercast;
-    } else if (tempMax >= 10) {
-      return iconRain;
-    } else if (tempMax >= 0) {
-      return iconStorm;
-    } else {
-      return iconSnow;
-    }
-  };
 
   const currentTemp = current ? Math.round(current.temperature_2m) : null;
   const currentIcon = currentTemp !== null ? getWeatherIcon(currentTemp) : null;

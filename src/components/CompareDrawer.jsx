@@ -62,7 +62,7 @@ export default function CompareDrawer({ isOpen, onClose, onCompare }) {
         }`}
       >
         <div id="drawer-card" className="p-4 mt-8 flex flex-col  gap-4 h-80 ">
-          <p>Select Location to compare</p>
+          <p className="text-lg">Select Locations to compare</p>
           {/* Search bar */}
           <div className="search-bar relative ">
             <input

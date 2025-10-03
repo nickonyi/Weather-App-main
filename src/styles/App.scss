@@ -3,6 +3,7 @@
 
 // ===== Colors =====
 $neutral-900: hsl(243, 96%, 9%);
+$neutral-850: hsl(243, 89%, 15%);
 $neutral-800: hsl(243, 27%, 20%);
 $neutral-700: hsl(243, 23%, 24%);
 $neutral-600: hsl(243, 23%, 30%);
@@ -180,6 +181,10 @@ body {
 }
 .city-bar {
   background-color: $neutral-700;
+}
+.weather-card {
+  background-color: $neutral-850;
+  border-radius: 15px;
 }
 
 @media screen and (max-width: 768px) {
