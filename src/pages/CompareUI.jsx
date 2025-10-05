@@ -37,7 +37,7 @@ function CompareUI({ cities, onBack }) {
         Compare weather locations
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:px-56 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:px-50 gap-4">
         {weatherData.map((city, idx) => (
           <div key={idx} className="weather-card p-4 rounded shadow pl-6">
             <h2 className="font-semibold py-4 text-2xl">

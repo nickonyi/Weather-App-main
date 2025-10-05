@@ -191,6 +191,27 @@ body {
   height: 100px;
 }
 
+.hourly-forecast-cards::-webkit-scrollbar {
+  width: 8px;
+}
+
+.hourly-forecast-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hourly-forecast-cards::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+}
+
+.hourly-forecast-cards::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.hourly-forecast-cards {
+  scroll-behavior: smooth;
+}
+
 @media screen and (max-width: 768px) {
   body {
     padding: 20px 5px;

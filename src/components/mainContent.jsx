@@ -70,7 +70,7 @@ function MainContent({
   const currentIcon = currentTemp !== null ? getWeatherIcon(currentTemp) : null;
 
   return (
-    <main className="main-content flex flex-col lg:flex-row  mt-8 lg:pl-24 lg:pr-8 gap-8">
+    <main className="main-content flex flex-col lg:flex-row  mt-24 lg:pl-24 lg:pr-8 gap-8">
       {/* LEFT: daily + banner */}
       <div className="daily-forecast-container flex-2 flex flex-col gap-8">
         <div className="weather-banner-section flex flex-col gap-8 px-4 ">
@@ -242,7 +242,7 @@ function MainContent({
             </div>
           </div>
 
-          <div className="hourly-forecast-cards flex flex-col gap-4 mt-4">
+          <div className="hourly-forecast-cards flex flex-col gap-4 mt-4 max-h-132 overflow-y-auto space-y-3">
             {loading
               ? // skeleton hourly rows
                 Array.from({ length: 7 }).map((_, i) => (
@@ -260,7 +260,7 @@ function MainContent({
                   </div>
                 ))
               : // real hourly rows
-                (grouped[selectedDay] || []).slice(0, 7).map((entry) => {
+                (grouped[selectedDay] || []).map((entry) => {
                   const icon = getWeatherIcon(entry.temp);
                   return (
                     <div
