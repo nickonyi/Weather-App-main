@@ -35,17 +35,17 @@ function Navbar({ units, setUnits, favorites, onSelectFavorite }) {
       </div>
 
       <div className="flex items-center  gap-4 ">
-        <div className="relative bg-gray-700 py-2 px-4 w-40 rounded-md">
+        <div className="relative gray-700 py-2 px-2 lg:px-4 w-40 rounded-md">
           <button
             onClick={toggleFavorites}
-            className="flex items-center gap-2 y-2  cursor-pointer"
+            className="flex items-center gap-2 cursor-pointer"
           >
             <FaStar className="text-yellow-400" />
-            <span>Favorites</span>
+            <span className="text-xs lg:text-base">Favorites</span>
           </button>
 
           <div
-            className={`absolute right-0 top-full mt-2 w-40 bg-gray-700 rounded-md shadow-lg  px-4 py-2 z-50 transform transition-all duration-300 ${
+            className={`absolute right-0 top-full mt-2 w-40 gray-700 rounded-md shadow-lg  px-4 py-2 z-50 transform transition-all duration-300 ${
               showFavorites
                 ? "translate-y-0 opacity-100"
                 : "-translate-y-3 opacity-0 pointer-events-none"
