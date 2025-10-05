@@ -65,7 +65,7 @@ function Navbar({ units, setUnits, favorites, onSelectFavorite }) {
                 </p>
               ))
             ) : (
-              <p className="text-gray-500"></p>
+              <p className="text-gray-500">No favorite yet!</p>
             )}
           </div>
         </div>
