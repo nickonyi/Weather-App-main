@@ -172,7 +172,12 @@ function App() {
 
   return (
     <>
-      <Navbar units={units} setUnits={setUnits} />
+      <Navbar
+        units={units}
+        setUnits={setUnits}
+        favorites={favorites}
+        onSelectFavorite={handleSelectFavorite}
+      />
       <ErrorBoundary FallbackComponent={Error}>
         {view === "main" && (
           <>
@@ -182,7 +187,6 @@ function App() {
               units={units}
               favorites={favorites}
               loadingFavorites={loadingFavorites}
-              onSelectFavorite={handleSelectFavorite}
               showFavoritesBar={showFavoritesBar}
               setShowFavoritesBar={setShowFavoritesBar}
               isExiting={isExiting}
