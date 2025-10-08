@@ -75,10 +75,10 @@ In the future, I’d like to:
 
 ### Useful resources
 
-- Tailwind CSS Documentation – [https://tailwindcss.com/docs/installation/using-vite]Great reference for quick styling and responsive design.
-- React Documentation – [https://react.dev]Clear explanations on state and effect management.
-- OpenWeatherMap API Docs – [https://openweathermap.org/api]Essential for integrating real-time weather data.
-- MDN Web Docs – [https://developer.mozilla.org/]Helped clarify certain JavaScript and CSS concepts.
+- Tailwind CSS Documentation – [https://tailwindcss.com/docs/installation/using-vite] Great reference for quick styling and responsive design.
+- React Documentation – [https://react.dev] Clear explanations on state and effect management.
+- OpenWeatherMap API Docs – [https://openweathermap.org/api] Essential for integrating real-time weather data.
+- MDN Web Docs – [https://developer.mozilla.org/] Helped clarify certain JavaScript and CSS concepts.
 
 ## Author
 
