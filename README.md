@@ -63,15 +63,6 @@ Users should be able to:
 - Creating responsive layouts efficiently with Tailwind’s utility classes
 - Implementing dynamic rendering for hourly and daily forecasts
 - Managing unit conversions (metric ↔ imperial) across components
-
-- Example of a weather fetch function I implemented:
-
-const handleSearch = async (city) => {
-const response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=${units}`);
-const data = await response.json();
-setWeatherData(data);
-};
-
 - I also improved my ability to organize components and maintain clean, readable code with proper state separation between current weather, forecast, and favorites.
 
 ### Continued development
@@ -84,19 +75,15 @@ In the future, I’d like to:
 
 ### Useful resources
 
-- Tailwind CSS Documentation – Great reference for quick styling and responsive design.
-- React Documentation – Clear explanations on state and effect management.
-- OpenWeatherMap API Docs – Essential for integrating real-time weather data.
-- MDN Web Docs – Helped clarify certain JavaScript and CSS concepts.
+- Tailwind CSS Documentation – [https://tailwindcss.com/docs/installation/using-vite]Great reference for quick styling and responsive design.
+- React Documentation – [https://react.dev]Clear explanations on state and effect management.
+- OpenWeatherMap API Docs – [https://openweathermap.org/api]Essential for integrating real-time weather data.
+- MDN Web Docs – [https://developer.mozilla.org/]Helped clarify certain JavaScript and CSS concepts.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@nick_onyi](https://www.frontendmentor.io/profile/nickonyi)
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+This project was built independently, but I drew inspiration from various Frontend Mentor community solutions and documentation examples that guided UI improvements and responsive layout ideas.
